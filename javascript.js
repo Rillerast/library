@@ -11,7 +11,7 @@ function Book(author, title, pages, read) {
 }
 
 function addBookToLibrary(author, title, pages, read) {
-    let newEntry = new Book(author, title, pages, read);
+    const newEntry = new Book(author, title, pages, read);
     
     let duplicate = false;
 
@@ -44,7 +44,7 @@ function addBookToLibrary(author, title, pages, read) {
 
     myLibrary.push(newEntry);
 
-    deleteButton.addEventListener("click", (event) => {
+    deleteButton.addEventListener("click", (_event) => {
         let removalIndex = 0;
         myLibrary.map((book, index) => {
             if (book.id === newEntry.id) removalIndex = index;
@@ -52,11 +52,23 @@ function addBookToLibrary(author, title, pages, read) {
         // Removing in place from the index (first argument) one element (second argument)
         myLibrary.splice(removalIndex, 1);
         tr.remove();
-        console.log(removalIndex);
-        console.log(myLibrary);
     });
 
 }
+
+const modal = document.querySelector(".new-book-form");
+
+const addFormButton = document.querySelector(".add-form-button");
+
+addFormButton.addEventListener("click", (_event) => {
+    modal.classList.remove("hidden");
+});
+
+const removeFormButton = document.querySelector(".cancel-form-button");
+
+removeFormButton.addEventListener("click", (_event) => {
+    modal.classList.add("hidden");
+});
 
 
 addBookToLibrary("a", "the hobbit", 10, true);
