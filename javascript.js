@@ -17,6 +17,7 @@ function addBookToLibrary(author, title, pages, read) {
 
     myLibrary.forEach((entry) => {
             if (newEntry.title === entry.title) {
+                console.log("duplicate")
                 duplicate = true;
             }
         });
@@ -70,9 +71,28 @@ removeFormButton.addEventListener("click", (_event) => {
     modal.classList.add("hidden");
 });
 
+const submitFormButton = document.querySelector(".submit-form-button")
+
+submitFormButton.addEventListener("click", (event) => {
+
+    event.preventDefault();
+    const author = document.querySelector("#author");
+    const title = document.querySelector("#title");
+    const pages = document.querySelector("#pages");
+    const readed = document.querySelector("#readed");
+
+    let booleanReaded = false;
+
+    if (readed.value.toLowerCase() === "true") booleanReaded = true;
+    else if(readed.value.toLowerCase() === "false") booleanReaded = false;
+
+    addBookToLibrary(author.value, title.value, pages.value, booleanReaded);
+
+});
+
 
 addBookToLibrary("a", "the hobbit", 10, true);
-addBookToLibrary("a", "lord of the rings", 10, true);
-addBookToLibrary("a", "moby dick", 10, true);
-addBookToLibrary("a", "hazerin", 10, true);
-addBookToLibrary("b", "war and peace", 10, true);
+addBookToLibrary("b", "lord of the rings", 10, true);
+addBookToLibrary("c", "moby dick", 10, true);
+addBookToLibrary("d", "hazerin", 10, true);
+addBookToLibrary("e", "war and peace", 10, true);

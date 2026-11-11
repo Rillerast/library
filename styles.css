@@ -98,6 +98,8 @@ form > h2 {
 input {
     border: 1px solid black;
     border-radius: 10px;
+    padding: 5px 10px;
+    height: 40px;
 }
 
 .buttons {
