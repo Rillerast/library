@@ -17,7 +17,6 @@ function addBookToLibrary(author, title, pages, read) {
 
     myLibrary.forEach((entry) => {
             if (newEntry.title === entry.title) {
-                console.log("duplicate")
                 duplicate = true;
             }
         });
@@ -43,6 +42,12 @@ function addBookToLibrary(author, title, pages, read) {
     deleteButton.innerText = "Delete";
     deleteContainer.append(deleteButton);
 
+    const changeStatusContainer = document.createElement("td");
+    tr.appendChild(changeStatusContainer);
+    const changeStatusButton = document.createElement("button");
+    changeStatusButton.innerText = "Change Status";
+    changeStatusContainer.append(changeStatusButton);
+
     myLibrary.push(newEntry);
 
     deleteButton.addEventListener("click", (_event) => {
@@ -53,6 +58,18 @@ function addBookToLibrary(author, title, pages, read) {
         // Removing in place from the index (first argument) one element (second argument)
         myLibrary.splice(removalIndex, 1);
         tr.remove();
+    });
+
+    changeStatusButton.addEventListener("click", (_event) => {
+        myLibrary.map((book, index) => {
+            if (book.id === newEntry.id) {
+                book.read = book.read ? false : true;
+                const trGroup = document.querySelectorAll("tr");
+                // the tr relative to the row to edit, and the td who contain the value (the number 3)
+                const td = trGroup[index + 1].querySelectorAll("td")[3];
+                td.innerText = book.read;
+            }
+        });
     });
 
 }
@@ -85,14 +102,14 @@ submitFormButton.addEventListener("click", (event) => {
 
     if (readed.value.toLowerCase() === "true") booleanReaded = true;
     else if(readed.value.toLowerCase() === "false") booleanReaded = false;
+    else return;
 
     addBookToLibrary(author.value, title.value, pages.value, booleanReaded);
 
 });
 
-
 addBookToLibrary("a", "the hobbit", 10, true);
 addBookToLibrary("b", "lord of the rings", 10, true);
 addBookToLibrary("c", "moby dick", 10, true);
-addBookToLibrary("d", "hazerin", 10, true);
+addBookToLibrary("d", "rillerast", 10, true);
 addBookToLibrary("e", "war and peace", 10, true);
